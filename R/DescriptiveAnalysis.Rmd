@@ -10,11 +10,8 @@ editor_options:
 ---
 
 ##### Lapse risk modelling in insurance: a Bayesian mixture approach
-
 ##### Authors: Viviana G R Lobo, Thais C O Fonseca and Mariane B Alves
-
 ##### Annals of Actuarial Science
-
 ##### Manuscript ID AAS-2022-0045
 
 This document presents a discussion descriptive statistical analysis for the Telco customer dataset shown in Section 3.3.
