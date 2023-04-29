@@ -2,10 +2,21 @@
 ##### Lapse risk modelling in insurance: a Bayesian mixture approach
 ##### Authors: Viviana G R Lobo, Thais C O Fonseca and Mariane B Alves
 ##### Annals of Actuarial Science
+##### Manuscript ID AAS-2022-0045
 #######################################################################
 
-#### install lnmixsurv package 
+
+#Bayesian Survival models via the mixture of Log-Normal distribution extends the well-known survival models
+#accommodating different behaviour over time and considers higher censored survival times. 
+#The proposal combines mixture distributions Fruhwirth-Schnatter(2006) <https://doi.org/10.1007/s11336-009-9121-4>, 
+#and data augmentation techniques Tanner and Wong (1987) <https://doi/abs/10.1080/01621459.1987.10478458>.
+### https://github.com/vivianalobo/lnmixsurv.git
+
+#### Install lnmixsurv Package (in the process of being prepared)
 #install::("vivianalobo/lnmixsurv")
+
+#### Telco customer churn dataset 
+### loading data and others
 source("up(telco).R")
 
 lapse1=df %>%
@@ -63,10 +74,8 @@ ggplot(data = haz.km, aes(x=.eval_time, y=.haz)) +
   geom_line(linewidth=1.5, color="grey50") 
 
 
-
+####### Model comparison
 ##### usual parametric survival models
-
-
 exponential_survival <- survival_reg(dist = "exponential") %>%
   set_engine("survival") ### pacote utilizado para modelagem
 
@@ -77,7 +86,7 @@ ln_survival <- survival_reg(dist = "lognormal") %>%
   set_engine("survival")
 
 
-### Bayesian mixture survival model
+### Bayesian mixture survival model with K components
 M=30000
 lag=15
 ln_mixture1 <- survival_ln_mixture(formula,
@@ -166,7 +175,7 @@ all_preds <- bind_rows(pred_sob, .id = "modelo") %>%
                                             "BMLN3","BMLN4","BMLN5","BMLN6")))
 
 
-######## Modelling
+######## Modelling the profile risk with Payment, Contract and Internet Service
 ### profile risk
 df2 %>% count(PaymentMethod,Contract, InternetService) 
 formula <- Surv(tenure, status) ~ PaymentMethod +Contract+  InternetService
@@ -186,8 +195,9 @@ surv_km <- tidy_survfit(km2, type = "surv") %>%
   tidyr::nest(.pred = c(.eval_time, .pred_survival))
 
 
-
+###################
 # Bayesian Fits
+#### see ?survival_ln_mixture
 M=70000
 bn=M/2
 lag= 30
