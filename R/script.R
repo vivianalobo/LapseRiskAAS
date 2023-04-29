@@ -1,6 +1,6 @@
 #######################################################################
 ##### Lapse risk modelling in insurance: a Bayesian mixture approach
-##### Authors: Viviana G R Lobo, Thais C O Fonseca and Mariana B Alves
+##### Authors: Viviana G R Lobo, Thais C O Fonseca and Mariane B Alves
 ##### Annals of Actuarial Science
 #######################################################################
 
