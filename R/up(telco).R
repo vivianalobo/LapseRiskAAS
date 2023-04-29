@@ -3,7 +3,7 @@
 
 
 
-
+library(lnmixsurv)
 library(ggplot2)
 library(prodlim)
 library(purrr)
