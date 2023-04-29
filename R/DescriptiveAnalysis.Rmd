@@ -1,10 +1,11 @@
 ---
 title: "Telco customer churn dataset"
 output:
- html_document:
+  pdf_document: default
+  html_document:
     code_folding: hide
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: sentence
 ---
 
