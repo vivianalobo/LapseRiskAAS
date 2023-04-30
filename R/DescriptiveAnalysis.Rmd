@@ -1,9 +1,9 @@
 ---
 title: "Telco customer churn dataset"
 output:
-  pdf_document: default
   html_document:
     code_folding: hide
+  pdf_document: default
 editor_options:
   markdown:
     wrap: sentence
@@ -83,7 +83,7 @@ rmarkdown::paged_table(df)
 
 ### Descriptive Analysis via Kaplan-Meier
 
-We present a descriptive analysis based on empirical marginal survival curves with the Kaplan-Meier estimator and evaluate the hazard curve for some variables including the categories demographics, service information, and customer account information.
+We present a descriptive analysis based on empirical marginal survival curves with the Kaplan-Meier estimator and evaluate the hazard curve for some covariates including the categories demographics, service information, and customer account information. As we can be seen, categories for each variable present particular behaviour and could be useful to understand the time to churn.  Although there is a large set of covariates available to explain the lapse risk, a group of them is not informative for the survival time under study.
 
 ```{r}
 dados <-  df
@@ -116,6 +116,7 @@ resultado= map(kms, extrai_km)
 ```
 
 ### Gender
+The lapse rate for the two categories of \texttt{Gender} in the data is nearly the same. In this case, we do not expected that gender is significant to explain the lapse risk. 
 
 ```{r}
 preds <-bind_rows(Gender=resultado$Gender, .id = "modelo") %>%
@@ -220,6 +221,7 @@ ggplotly(c2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 
 ### SeniorCitizen
 
+See that no Senior citizen has lower propensity to churn when compared with senior citizen. Although this covariate apparently significant to explain the rate of lapsation over time, the SeniorCitizen covariate does not show significant in the modelling.
 ```{r}
 preds <-   
  bind_rows(SeniorCitizen=resultado$SeniorCitizen, .id = "modelo") %>%
@@ -251,6 +253,8 @@ ggplotly(d2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 ```
 
 ### InternetService
+
+The behaviour of customers that do not have internet service or DSL service present similar behaviour in terms of lapse. See that customer that have Fiber optic service has proposenty to churn earlier compared each others. As the hazard curve are quite similar for No and DSL categorie, we consider to aggregate in an unique category called "others". 
 
 ```{r}
 preds <-   
@@ -316,7 +320,9 @@ ggplotly(f1) %>% layout(legend=list(orientation="h",x=0, y=-0.2))
 ggplotly(f2) %>% layout(legend=list(orientation="h",x=0, y=-0.2)) 
 ```
 
-### PaperlessBilling
+### Dependents
+
+This covariate apparently does not enough to explain the time to churn. See that the instantaneous lapse risk are quite similar for Yes and No categories.
 
 ```{r, echo=FALSE}
 preds <-   
@@ -348,6 +354,10 @@ ggplotly(g1) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 ```{r, echo=FALSE}
 ggplotly(g2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2)) 
 ```
+
+### PaperlessBilling
+
+This covariate apparently does not enough to explain the time to churn. See that the instantaneous lapse risk are quite similar for Yes and No contegories.
 
 ```{r}
 preds <-   
