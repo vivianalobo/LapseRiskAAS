@@ -49,3 +49,5 @@ po/*~
 rsconnect/
 
 ren/
+
+*.DS_Store
