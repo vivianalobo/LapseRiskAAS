@@ -48,6 +48,6 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
-ren/
+renv/
 
 *.DS_Store
