@@ -1,0 +1,91 @@
+"0","#### import telco customer data and libraries
+source(""up(telco).R"")
+"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"
+"2","
+Attaching package: ‘dplyr’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"2","Loading required package: ggsurvfit
+"
+"2","Loading required package: censored
+"
+"2","── [1mAttaching core tidyverse packages[22m ─────────── tidyverse 2.0.0 ──
+[32m✔[39m [34mforcats  [39m 1.0.0     [32m✔[39m [34mstringr  [39m 1.5.0
+[32m✔[39m [34mlubridate[39m 1.9.2     [32m✔[39m [34mtibble   [39m 3.2.1
+[32m✔[39m [34mreadr    [39m 2.1.4     "
+"2","── [1mConflicts[22m ───────────────────────────── tidyverse_conflicts() ──
+[31m✖[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
+[31m✖[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
+[36mℹ[39m Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"
+"2","
+Attaching package: ‘plotly’
+
+"
+"2","The following object is masked from ‘package:ggplot2’:
+
+    last_plot
+
+"
+"2","The following object is masked from ‘package:stats’:
+
+    filter
+
+"
+"2","The following object is masked from ‘package:graphics’:
+
+    layout
+
+"
+"2","
+Attaching package: ‘scales’
+
+"
+"2","The following object is masked from ‘package:readr’:
+
+    col_factor
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    discard
+
+"
+"2","This is bayesplot version 1.10.0
+"
+"2","- Online documentation and vignettes at mc-stan.org/bayesplot
+"
+"2","- bayesplot theme set to bayesplot::theme_default()
+"
+"2","   * Does _not_ affect other ggplot2 plots
+"
+"2","   * See ?bayesplot_theme_set for details on theme setting
+"
+"2","Loading required package: gridExtra
+"
+"2","
+Attaching package: ‘gridExtra’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    combine
+
+"
