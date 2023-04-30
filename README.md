@@ -21,3 +21,6 @@ More details about the lnmixsurv package see:
 ``` r
 require "lnmixsurv"
 ```
+
+In this document, we present the Telco customer analysis that is
+available at directory R.
