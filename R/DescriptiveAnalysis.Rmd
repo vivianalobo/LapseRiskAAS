@@ -116,7 +116,7 @@ resultado= map(kms, extrai_km)
 ```
 
 ### Gender
-The lapse rate for the two categories of \texttt{Gender} in the data is nearly the same. In this case, we do not expected that gender is significant to explain the lapse risk. 
+The lapse rate for the two categories of \texttt{Gender} in the data is nearly the same. In this case, we do not expected that Gender is significant to explain the lapse risk. 
 
 ```{r}
 preds <-bind_rows(Gender=resultado$Gender, .id = "modelo") %>%
@@ -393,6 +393,8 @@ ggplotly(h2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 
 ### DeviceProtection
 
+This covariate presents collinearity with variable **InternetService**. See the dependence in the cateogory ``No InternetService''.
+
 ```{r}
 preds <-   
  bind_rows(DeviceProtection=resultado$DeviceProtection, .id = "modelo") %>%
@@ -425,6 +427,8 @@ ggplotly(i2) %>% layout(legend=list(orientation="h",x=0, y=-0.2))
 ```
 
 ### PhoneService
+
+Similar behaviour has already been mentioned for the variable **Gender**. 
 
 ```{r}
 preds <-   
