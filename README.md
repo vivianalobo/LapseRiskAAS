@@ -7,10 +7,6 @@
 
 ##### Authors: Viviana G R Lobo, Thais C O Fonseca and Mariane B Alves
 
-##### Annals of Actuarial Science
-
-##### Manuscript ID AAS-2022-0045
-
 Bayesian Survival models via mixture of Log-Normal distribution extends
 the well-known survival models accommodating different behaviour over
 time and considers higher censored survival times. The proposal combines

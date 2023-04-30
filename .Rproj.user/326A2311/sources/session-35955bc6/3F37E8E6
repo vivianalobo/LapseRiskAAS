@@ -3,7 +3,7 @@
     "path": "~/Documents/LapseRiskAAS/README.Rmd",
     "project_path": "README.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "2577717882",
     "contents": "",
     "dirty": false,
     "created": 1682893240548.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "28,46",
+        "cursorPosition": "21,0",
         "scrollLine": "20"
     },
     "folds": "",
-    "lastKnownWriteTime": 1682893832,
+    "lastKnownWriteTime": 1682893964,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1682893832646,
+    "last_content_update": 1682893965017,
     "read_only": false,
     "read_only_alternatives": []
 }
