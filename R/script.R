@@ -90,9 +90,12 @@ ln_survival <- survival_reg(dist = "lognormal") %>%
 ### Bayesian mixture survival model with K components
 M=30000
 lag=15
+
+set.seed(536792)
 ln_mixture1 <- survival_ln_mixture(formula,
                                    data=df, intercept = TRUE, iter=M, warmup=M/2, thin= lag, chains=1,
                                    numero_componentes=2)
+set.seed(536792)
 ln_mixture2 <- survival_ln_mixture(formula,
                                    data=df, intercept = TRUE, iter=M, warmup=M/2, thin= lag, chains=1,
                                    numero_componentes=3)
@@ -105,6 +108,16 @@ ln_mixture4 <- survival_ln_mixture(formula,
 ln_mixture5 <- survival_ln_mixture(formula,
                                    data=df, intercept = TRUE, iter=M, warmup=M/2, thin= lag, chains=1,
                                    numero_componentes=6)
+
+### output - see examples
+
+## two components
+ln_mixture1
+mcmc_trace(ln_mixture1$posterior)
+
+## three components
+ln_mixture2
+mcmc_trace(ln_mixture2$posterior)
 
 
 specs <- list(Exponential=exponential_survival, Weibull = weibull_survival,LN=ln_survival) #, BMLN= ln_mixture)
