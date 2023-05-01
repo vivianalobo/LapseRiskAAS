@@ -15,13 +15,13 @@ mixture distributions Fruhwirth-Schnatter(2006)
 techniques Tanner and Wong (1987)
 <https://doi/abs/10.1080/01621459.1987.10478458>.
 
-More details about the lnmixsurv package see:
-<https://github.com/vivianalobo/lnmixsurv.git>
+More details about the **lnmixsurv** package see:
+`https://github.com/vivianalobo/lnmixsurv.git`
 
 ### Prerequisites
 
 The codes use the Bayesian mixture survival approach implemented in the
-**lnmixsurv package**.
+**lnmixsurv** package.
 
 ``` r
 require("lnmixsurv")
