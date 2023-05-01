@@ -50,4 +50,4 @@ rsconnect/
 
 renv/
 
-*.DS_Store
+.DS_Store

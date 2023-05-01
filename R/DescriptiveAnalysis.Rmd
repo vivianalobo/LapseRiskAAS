@@ -20,7 +20,7 @@ This document presents a discussion descriptive statistical analysis for the Tel
 
 ```{r}
 #### import telco customer data and libraries
-source("up(telco).R")
+source("R/up(telco).R")
 ```
 
 ### About Telco customer dataset

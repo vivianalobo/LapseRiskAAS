@@ -18,7 +18,7 @@
 
 #### Telco customer churn dataset 
 ### loading data and others
-source("up(telco).R")
+source("R/up(telco).R")
 
 lapse1=df %>%
   group_by(lapse=Churn) %>%

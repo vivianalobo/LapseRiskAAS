@@ -22,7 +22,7 @@ library(knitr)
 
 
 
-df<- read.csv("WA_Fn-UseC_-Telco-Customer-Churn.csv")
+df<- read.csv("data/WA_Fn-UseC_-Telco-Customer-Churn.csv")
 head(df)
 dim(df)
 #[1] 7043   21
