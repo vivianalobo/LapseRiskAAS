@@ -19,6 +19,7 @@ library(survival)
 library(bayesplot)
 require(gridExtra)
 library(knitr)
+require(grid)
 
 
 

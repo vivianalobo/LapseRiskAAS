@@ -94,13 +94,79 @@ rmarkdown::paged_table(df)
 
 ### Descriptive Analysis via Kaplan-Meier
 
-The panels illustrate the pattern of the lifetime of the customers.
-Although a large admission of new customers is observed for the first months of contract, Third panel indicates there is a high lapse rate at the beginning, i.e., there is a large portion of customers that will leave after just a few months of service.
-In the other months, the lapse risk rate remains around 0.005.
+The first Figure illustrates the pattern of the lifetime of the customers. Although a large admission of new customers is observed for the first months of contract.
+
+```{r}
+### histogram 
+p1<- ggplot(data =df , aes(x = tenure), col=" black") +
+  xlab("survival time (in months)") + ylab("frequency")+
+  theme_bw() +
+  theme(axis.title.x = element_text(color = "black",size=22),
+        axis.title.y = element_text(color = "black",size=22), 
+        axis.text=element_text(color = "black",size=22), 
+        axis.title = element_text(color = "black",size=22)) +
+  # facet_wrap() + 
+  geom_histogram(bins=15, color='white')
+
+
+### survival analysis
+formula_km <- Surv(tenure, status) ~ 1
+formula <- Surv(tenure, status) ~ NULL
+km <- survfit2(formula_km,df)
+
+# Manipulating the KM to format that matches parsnip predictions.
+surv_km <- tidy_survfit(km, type = "surv") %>%
+  dplyr::select(.eval_time = time, .pred_survival = estimate) %>%
+  tidyr::nest(.pred = c(.eval_time, .pred_survival))
+
+
+km_fit <- surv_km %>%
+  tidyr::unnest(cols = .pred) %>%
+  filter(.eval_time < 75)
+
+haz.km = km_fit %>%
+  mutate(.haz=tx.emp(.eval_time, .pred_survival)) 
+
+p2<- ggplot(data= km_fit, aes(x= .eval_time, y = .pred_survival)) + 
+  geom_step( linewidth=1.5) +
+  scale_y_continuous(limits = c(0.5,1),breaks = seq(0, 1, 0.2), labels = point) + 
+  scale_x_continuous(limits=c(0,75), breaks = seq(0,60,by=20), labels = grad) +
+  theme_bw() +
+  theme(plot.title = element_text(lineheight = 2),
+        axis.title.x = element_text(color = "black", size = 22),
+        axis.title.y = element_text(color = "black", size = 22),
+        axis.text = element_text(color="black",size=22)) +
+  labs(x =  "survival time (in months)", y = "survival probabilities")
+
+
+p3<- ggplot(data = haz.km, aes(x=.eval_time, y=.haz)) +
+  xlab("survival time (in months)") + ylab("hazard curve")+
+  theme_bw(base_size = 25) +
+  scale_y_continuous(limits = c(0,0.06),breaks = seq(0,0.06, 0.02), labels = point) + 
+  scale_x_continuous(limits=c(0,75), breaks = seq(0,75,by=20), labels = grad) +
+  geom_line(linewidth=1.5) 
+
+
+```
+
+
+```{r}
+p1
+```
+
+The second and third Figures indicate that there is a high lapse rate at the beginning, i.e., there is a large portion of customers that will leave after just a few months of service.
+In the other months, the lapse risk rate remains around 0.005 (see hazard curve).
 Note that after 60 months of contract, there is a steep increase in the lapse rate.
 We expect that our proposed model is able to capture these sudden changes of pattern in the hazard function over time.
+```{r}
+p2
+```
 
-We present a descriptive analysis based on empirical marginal survival curves with the Kaplan-Meier estimator and evaluate the hazard curve for some covariates including the categories demographics, service information, and customer account information.
+```{r}
+p3
+```
+
+Now, we present a descriptive analysis based on empirical marginal survival curves with the Kaplan-Meier estimator and evaluate the hazard curve for some covariates including the categories demographics, service information, and customer account information.
 As we can be seen, categories for each variable present particular behaviour and could be useful to understand the time to churn.
 Although there is a large set of covariates available to explain the lapse risk, a group of them is not informative for the survival time under study.
 
@@ -134,7 +200,7 @@ kms <- list(Gender=fit.km1, PaymentMethod=fit.km2, Contract=fit.km3,
 resultado= map(kms, extrai_km)
 ```
 
-### Gender
+**Gender**
 
 The lapse rate for the two categories of \texttt{Gender} in the data is nearly the same.
 In this case, we do not expected that Gender is significant to explain the lapse risk.
@@ -240,7 +306,7 @@ ggplotly(c1) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 ggplotly(c2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2)) 
 ```
 
-### SeniorCitizen
+**SeniorCitizen**
 
 See that no Senior citizen has lower propensity to churn when compared with senior citizen.
 Although this covariate apparently significant to explain the rate of lapsation over time, the SeniorCitizen covariate does not show significant in the modelling.
@@ -275,7 +341,7 @@ ggplotly(d1) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 ggplotly(d2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2)) 
 ```
 
-### InternetService
+**InternetService**
 
 The behaviour of customers that do not have internet service or DSL service present similar behaviour in terms of lapse.
 See that customer that have Fiber optic service has proposenty to churn earlier compared each others.
@@ -312,7 +378,7 @@ ggplotly(e1) %>% layout(legend=list(orientation="h",x=0, y=-0.2))
 ggplotly(e2) %>% layout(legend=list(orientation="h",x=0, y=-0.2)) 
 ```
 
-### StreamingTV
+**StreamingTV**
 
 ```{r}
 preds <-   
@@ -345,7 +411,7 @@ ggplotly(f1) %>% layout(legend=list(orientation="h",x=0, y=-0.2))
 ggplotly(f2) %>% layout(legend=list(orientation="h",x=0, y=-0.2)) 
 ```
 
-### Dependents
+**Dependents**
 
 This covariate apparently does not enough to explain the time to churn.
 See that the instantaneous lapse risk are quite similar for Yes and No categories.
@@ -381,7 +447,7 @@ ggplotly(g1) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 ggplotly(g2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2)) 
 ```
 
-### PaperlessBilling
+**PaperlessBilling**
 
 This covariate apparently does not enough to explain the time to churn.
 See that the instantaneous lapse risk are quite similar for Yes and No contegories.
@@ -418,7 +484,7 @@ ggplotly(h1) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 ggplotly(h2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2)) 
 ```
 
-### DeviceProtection
+**DeviceProtection**
 
 This covariate presents collinearity with variable **InternetService**.
 See the dependence in the cateogory \`\`No InternetService''.
@@ -454,7 +520,7 @@ ggplotly(i1) %>% layout(legend=list(orientation="h",x=0, y=-0.2))
 ggplotly(i2) %>% layout(legend=list(orientation="h",x=0, y=-0.2)) 
 ```
 
-### PhoneService
+**PhoneService**
 
 Similar behaviour has already been mentioned for the variable **Gender**.
 

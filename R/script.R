@@ -12,30 +12,15 @@
 #and data augmentation techniques Tanner and Wong (1987) <https://doi/abs/10.1080/01621459.1987.10478458>.
 ### https://github.com/vivianalobo/lnmixsurv.git
 
-#### Install lnmixsurv Package (in the process of being prepared)
-#install("vivianalobo/lnmixsurv")
-?lnmixsurv
 
 #### Telco customer churn dataset 
 ### loading data and others
 source("R/up(telco).R")
 
-lapse1=df %>%
-  group_by(lapse=Churn) %>%
-  summarise(n = n()) %>%
-  mutate(freq = n / sum(n))
-lapse1
+#### Install lnmixsurv Package (in the process of being prepared)
+#install("vivianalobo/lnmixsurv")
+?lnmixsurv
 
-### histogram 
-ggplot(data =df , aes(x = tenure), col=" black") +
-  xlab("survival time (in months)") + ylab("frequency")+
-  theme_bw() +
-  theme(axis.title.x = element_text(color = "black",size=22),
-        axis.title.y = element_text(color = "black",size=22), 
-        axis.text=element_text(color = "black",size=22), 
-        axis.title = element_text(color = "black",size=22)) +
-  # facet_wrap() + 
-  geom_histogram(bins=15, color='white',fill= "grey50")
 
 ### survival analysis
 formula_km <- Surv(tenure, status) ~ 1
@@ -54,26 +39,6 @@ km_fit <- surv_km %>%
 
 haz.km = km_fit %>%
   mutate(.haz=tx.emp(.eval_time, .pred_survival)) 
-
-ggplot(data= km_fit, aes(x= .eval_time, y = .pred_survival)) + 
-  geom_step(color = "grey50", linewidth=1.5) +
-  scale_y_continuous(limits = c(0.5,1),breaks = seq(0, 1, 0.2), labels = point) + 
-  scale_x_continuous(limits=c(0,75), breaks = seq(0,60,by=20), labels = grad) +
-  theme_bw() +
-  theme(plot.title = element_text(lineheight = 2),
-        axis.title.x = element_text(color = "black", size = 22),
-        axis.title.y = element_text(color = "black", size = 22),
-        axis.text = element_text(color="black",size=22)) +
-  labs(x =  "survival time (in months)", y = "survival probabilities")
-
-
-ggplot(data = haz.km, aes(x=.eval_time, y=.haz)) +
-  xlab("survival time (in months)") + ylab("hazard curve")+
-  theme_bw(base_size = 25) +
-  scale_y_continuous(limits = c(0,0.06),breaks = seq(0,0.06, 0.02), labels = point) + 
-  scale_x_continuous(limits=c(0,75), breaks = seq(0,75,by=20), labels = grad) +
-  geom_line(linewidth=1.5, color="grey50") 
-
 
 ####### Model comparison
 ##### usual parametric survival models
