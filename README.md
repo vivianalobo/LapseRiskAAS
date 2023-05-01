@@ -18,6 +18,8 @@ techniques Tanner and Wong (1987)
 More details about the lnmixsurv package see:
 <https://github.com/vivianalobo/lnmixsurv.git>
 
+# Prerequisites
+
 ``` r
 require "lnmixsurv"
 ```
