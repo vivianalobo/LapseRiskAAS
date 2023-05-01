@@ -18,11 +18,23 @@ techniques Tanner and Wong (1987)
 More details about the lnmixsurv package see:
 <https://github.com/vivianalobo/lnmixsurv.git>
 
-# Prerequisites
+## Prerequisites
+
+The codes use the Bayesian mixture survival approach implemented in the
+lnmixsurv package.
 
 ``` r
 require "lnmixsurv"
 ```
 
-In this document, we present the Telco customer analysis that is
-available at directory R.
+## Example
+
+We present the Telco customer analysis. This is a basic example which
+shows you how to assess the dataset and run descriptive analysis and
+inference procedure
+
+``` r
+#### Telco customer churn dataset 
+### loading data and others
+source("R/up(telco).R")
+```
