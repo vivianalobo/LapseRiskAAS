@@ -18,13 +18,13 @@ techniques Tanner and Wong (1987)
 More details about the lnmixsurv package see:
 <https://github.com/vivianalobo/lnmixsurv.git>
 
-## Prerequisites
+## Requirements
 
 The codes use the Bayesian mixture survival approach implemented in the
 lnmixsurv package.
 
 ``` r
-require "lnmixsurv"
+require("lnmixsurv")
 ```
 
 ## Example
@@ -38,3 +38,5 @@ inference procedure
 ### loading data and others
 source("R/up(telco).R")
 ```
+
+For acess a descriptive analysis

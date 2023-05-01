@@ -36,7 +36,7 @@ require("lnmixsurv")
 
 ## Example
 
-We present the Telco customer analysis. This is a basic example which shows you how to assess the dataset and run descriptive analysis and inference procedure
+We present the Telco customer analysis. This is a basic example which shows you how to adress the dataset and run descriptive analysis and inference procedure
 
 ```{r}
 #### Telco customer churn dataset 
@@ -44,7 +44,10 @@ We present the Telco customer analysis. This is a basic example which shows you 
 source("R/up(telco).R")
 ```
 
-The Telco customer dataset:
-```{r, layout="l-body-outset"}
-rmarkdown::paged_table(df)
-```
+For see a detailed descriptive analysis ....
+
+
+To run the inference procedure see ....
+
+
+

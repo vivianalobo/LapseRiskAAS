@@ -10,8 +10,11 @@ editor_options:
 ---
 
 ##### Lapse risk modelling in insurance: a Bayesian mixture approach
+
 ##### Authors: Viviana G R Lobo, Thais C O Fonseca and Mariane B Alves
+
 ##### Annals of Actuarial Science
+
 ##### Manuscript ID AAS-2022-0045
 
 This document presents a discussion descriptive statistical analysis for the Telco customer dataset shown in Section 3.3.
@@ -19,7 +22,6 @@ This document presents a discussion descriptive statistical analysis for the Tel
 ### Load packages and the dataset
 
 ```{r}
-#### import telco customer data and libraries
 source("R/up(telco).R")
 ```
 
@@ -27,6 +29,15 @@ source("R/up(telco).R")
 
 The Telco customer churn data is available in IBM Business Analytics Community Connect XXXX and contains information about a Telco company that provides home phone and internet services to 7,043 customers in California in the United States.
 The dataset contains 18 variables about the profile of the customers and a variable indicating who have left or stayed the service and presents an approximate 73.4% censorship rate.
+
+```{r ,layout="l-body-outset"}
+lapse1=df %>%
+  group_by(lapse=Churn) %>%
+  summarise(n = n()) %>%
+  mutate(freq = n / sum(n))
+rmarkdown::paged_table(lapse1)
+```
+
 The response variable **tenure** represents the number of months the customer has stayed with the company with average of 32 months.
 Lifetimes equal zero were removed resulting in a dataset of 7,032 customers.
 Demographics characteristics are included for each customer, as well as customer account information and service information.
@@ -83,7 +94,15 @@ rmarkdown::paged_table(df)
 
 ### Descriptive Analysis via Kaplan-Meier
 
-We present a descriptive analysis based on empirical marginal survival curves with the Kaplan-Meier estimator and evaluate the hazard curve for some covariates including the categories demographics, service information, and customer account information. As we can be seen, categories for each variable present particular behaviour and could be useful to understand the time to churn.  Although there is a large set of covariates available to explain the lapse risk, a group of them is not informative for the survival time under study.
+The panels illustrate the pattern of the lifetime of the customers.
+Although a large admission of new customers is observed for the first months of contract, Third panel indicates there is a high lapse rate at the beginning, i.e., there is a large portion of customers that will leave after just a few months of service.
+In the other months, the lapse risk rate remains around 0.005.
+Note that after 60 months of contract, there is a steep increase in the lapse rate.
+We expect that our proposed model is able to capture these sudden changes of pattern in the hazard function over time.
+
+We present a descriptive analysis based on empirical marginal survival curves with the Kaplan-Meier estimator and evaluate the hazard curve for some covariates including the categories demographics, service information, and customer account information.
+As we can be seen, categories for each variable present particular behaviour and could be useful to understand the time to churn.
+Although there is a large set of covariates available to explain the lapse risk, a group of them is not informative for the survival time under study.
 
 ```{r}
 dados <-  df
@@ -116,7 +135,9 @@ resultado= map(kms, extrai_km)
 ```
 
 ### Gender
-The lapse rate for the two categories of \texttt{Gender} in the data is nearly the same. In this case, we do not expected that Gender is significant to explain the lapse risk. 
+
+The lapse rate for the two categories of \texttt{Gender} in the data is nearly the same.
+In this case, we do not expected that Gender is significant to explain the lapse risk.
 
 ```{r}
 preds <-bind_rows(Gender=resultado$Gender, .id = "modelo") %>%
@@ -221,7 +242,9 @@ ggplotly(c2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 
 ### SeniorCitizen
 
-See that no Senior citizen has lower propensity to churn when compared with senior citizen. Although this covariate apparently significant to explain the rate of lapsation over time, the SeniorCitizen covariate does not show significant in the modelling.
+See that no Senior citizen has lower propensity to churn when compared with senior citizen.
+Although this covariate apparently significant to explain the rate of lapsation over time, the SeniorCitizen covariate does not show significant in the modelling.
+
 ```{r}
 preds <-   
  bind_rows(SeniorCitizen=resultado$SeniorCitizen, .id = "modelo") %>%
@@ -254,7 +277,9 @@ ggplotly(d2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 
 ### InternetService
 
-The behaviour of customers that do not have internet service or DSL service present similar behaviour in terms of lapse. See that customer that have Fiber optic service has proposenty to churn earlier compared each others. As the hazard curve are quite similar for No and DSL categorie, we consider to aggregate in an unique category called "others". 
+The behaviour of customers that do not have internet service or DSL service present similar behaviour in terms of lapse.
+See that customer that have Fiber optic service has proposenty to churn earlier compared each others.
+As the hazard curve are quite similar for No and DSL categorie, we consider to aggregate in an unique category called "others".
 
 ```{r}
 preds <-   
@@ -322,7 +347,8 @@ ggplotly(f2) %>% layout(legend=list(orientation="h",x=0, y=-0.2))
 
 ### Dependents
 
-This covariate apparently does not enough to explain the time to churn. See that the instantaneous lapse risk are quite similar for Yes and No categories.
+This covariate apparently does not enough to explain the time to churn.
+See that the instantaneous lapse risk are quite similar for Yes and No categories.
 
 ```{r, echo=FALSE}
 preds <-   
@@ -357,7 +383,8 @@ ggplotly(g2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 
 ### PaperlessBilling
 
-This covariate apparently does not enough to explain the time to churn. See that the instantaneous lapse risk are quite similar for Yes and No contegories.
+This covariate apparently does not enough to explain the time to churn.
+See that the instantaneous lapse risk are quite similar for Yes and No contegories.
 
 ```{r}
 preds <-   
@@ -393,7 +420,8 @@ ggplotly(h2) %>% layout(legend=list(orientation="h",x=0.2, y=-0.2))
 
 ### DeviceProtection
 
-This covariate presents collinearity with variable **InternetService**. See the dependence in the cateogory ``No InternetService''.
+This covariate presents collinearity with variable **InternetService**.
+See the dependence in the cateogory \`\`No InternetService''.
 
 ```{r}
 preds <-   
@@ -428,7 +456,7 @@ ggplotly(i2) %>% layout(legend=list(orientation="h",x=0, y=-0.2))
 
 ### PhoneService
 
-Similar behaviour has already been mentioned for the variable **Gender**. 
+Similar behaviour has already been mentioned for the variable **Gender**.
 
 ```{r}
 preds <-   
