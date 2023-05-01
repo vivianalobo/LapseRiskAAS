@@ -13,7 +13,8 @@
 ### https://github.com/vivianalobo/lnmixsurv.git
 
 #### Install lnmixsurv Package (in the process of being prepared)
-#install::("vivianalobo/lnmixsurv")
+#install("vivianalobo/lnmixsurv")
+?lnmixsurv
 
 #### Telco customer churn dataset 
 ### loading data and others
